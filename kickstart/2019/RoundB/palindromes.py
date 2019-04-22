@@ -1,51 +1,68 @@
-def palindromes(N, Q, str, L_Rs):
-  number_or_palindromes = 0
-  for l_r in L_Rs:
-    l = l_r[0] - 1
-    r = l_r[1]
-    number_or_palindromes += is_palindrome(str[l:r])
-  return number_or_palindromes
+import string
 
 
-def is_palindrome(str):
-  chars = {}
-  for c in str:
-    chars[c] = (chars.get(c, 0) + 1) % 2
+def palindromes(N, Q, input_string, L_Rs):
+    prefix_sum_arrays = create_prefix_sum_array_for_every_letter(input_string)
 
-  if (len(str) % 2) == 0:
-    # even number of chars --> all chars in dict must appear in pairs
-    str_is_palindrome = all(True if v == 0 else False for k, v in chars.items())
-    return str_is_palindrome
-  else:
-    # odd number of chars --> one char may appear only once
+    number_or_palindromes = 0
+    for l_r in L_Rs:
+        l = l_r[0] - 1
+        r = l_r[1] - 1
+        number_or_palindromes += is_palindrome(l, r, prefix_sum_arrays)
+    return number_or_palindromes
+
+
+def is_palindrome(l, r, prefix_sum_arrays):
+    chars = {}
+    for letter in string.ascii_uppercase:
+        ps_array = prefix_sum_arrays.get(letter)
+        if l > 0:
+            chars[letter] = (ps_array[r] - ps_array[l - 1]) % 2
+        else:
+            chars[letter] = (ps_array[r]) % 2
+
     counter = 0
     for k, v in chars.items():
-      if v == 1:
-        counter += 1
+        if v == 1:
+            counter += 1
 
-      if counter == 2:
-        return False
+        if counter == 2:
+            return False
     return True
 
-number_of_test_cases = int(input())
-for i in range(1, number_of_test_cases + 1):
-    N, Q = input().split()
-    N = int(N)
-    Q = int(Q)
 
-    str_inp = input()
-    L_Rs = []
-    for _ in range(Q):
-      l, r = input().split()
-      l = int(l)
-      r = int(r)
-      L_Rs.append((l, r))
-    result = palindromes(N, Q, str_inp, L_Rs)
-    print("Case #{}: {}".format(i, result))
+def create_prefix_sum_array_for_every_letter(input_string):
+    prefix_sum_arrays = {}
+    for letter in string.ascii_uppercase:
+        arr = []
+        counter = 0
+        for c in input_string:
+            if c == letter:
+                counter += 1
+            arr.append(counter)
+        prefix_sum_arrays[letter] = arr
+    return prefix_sum_arrays
+
+
+# number_of_test_cases = int(input())
+# for i in range(1, number_of_test_cases + 1):
+#     N, Q = input().split()
+#     N = int(N)
+#     Q = int(Q)
+#
+#     str_inp = input()
+#     L_Rs = []
+#     for _ in range(Q):
+#       l, r = input().split()
+#       l = int(l)
+#       r = int(r)
+#       L_Rs.append((l, r))
+#     result = palindromes(N, Q, str_inp, L_Rs)
+#     print("Case #{}: {}".format(i, result))
 
 if __name__ == "__main__":
-  N = 7
-  Q = 5
-  input_str = "ABAACCA"
-  L_Rs = [(3, 6), (4, 4), (2, 5), (6, 7), (3, 7)]
-  print(palindromes(N, Q, input_str, L_Rs))
+    N = 7
+    Q = 5
+    input_str = "ABAACCA"
+    L_Rs = [(3, 6), (4, 4), (2, 5), (6, 7), (3, 7)]
+    print(palindromes(N, Q, input_str, L_Rs))
