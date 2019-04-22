@@ -1,3 +1,6 @@
+import functools
+
+
 class Stone:
     def __init__(self, time, energy, lose):
         self.time = time
@@ -5,48 +8,34 @@ class Stone:
         self.lose = lose
 
 
-def maximize_energy(N, stone_values):
-    all_stones = set()
-    for s, e, l in stone_values:
-        all_stones.add(Stone(s, e, l))
+def maximize_energy(n, stone_values):
+    stones = []
+    for val in stone_values:
+        stones.append(Stone(val[0], val[1], val[2]))
 
-    energies = []
+    stones.sort(key=lambda stone: stone.time / stone.lose if stone.lose != 0 else float('inf'))
 
-    def eat(current_stone, other_stones, current_energy):
-        other_stones = update_other_stones(other_stones, current_stone)
-        for stone in other_stones:
-            os = get_other_stones(stone, other_stones)
-            eat(stone, os, current_energy + stone.energy)
+    max_time = functools.reduce(lambda max_time, stone: max_time + stone.time, stones, 0)
+    num_stones = len(stone_values)
+    cache = [[None] * num_stones for _ in range(max_time)]
 
-        if not other_stones:
-            energies.append(current_energy)
+    def choose_stones(time, stone_idx):
+        cur_stn = stones[stone_idx]
 
-    for s in all_stones:
-        others = get_other_stones(s, all_stones)
-        eat(s, others, s.energy)
+        if stone_idx == num_stones - 1:
+            cache[time][stone_idx] = max(0, cur_stn.energy - (cur_stn.lose * time))
+            return cache[time][stone_idx]
 
-    energies.sort()
-    max_energy = energies[-1]
+        if cache[time][stone_idx] is None:
+            stone_energy = max(0, cur_stn.energy - (cur_stn.lose * time))
+
+            take_stone = choose_stones(time + cur_stn.time, stone_idx + 1) + stone_energy
+            dont_take_stone = choose_stones(time, stone_idx + 1)
+            cache[time][stone_idx] = max(take_stone, dont_take_stone)
+        return cache[time][stone_idx]
+
+    max_energy = choose_stones(0, 0)
     return max_energy
-
-
-def update_other_stones(other_stones, current_stone):
-    for stone in other_stones:
-        stone.energy -= (stone.lose * current_stone.time)
-
-    new_stones = set()
-    for stone in other_stones:
-        if stone.energy >= 0:
-            new_stones.add(stone)
-    return new_stones
-
-
-def get_other_stones(current_stone, all_stones):
-    new_stones = set()
-    for stone in all_stones:
-        if stone != current_stone:
-            new_stones.add(Stone(stone.time, stone.energy, stone.lose))
-    return new_stones
 
 
 number_of_test_cases = int(input())
@@ -64,13 +53,11 @@ for i in range(1, number_of_test_cases + 1):
     result = maximize_energy(N, s_v)
     print("Case #{}: {}".format(i, result))
 
-# if __name__ == "__main__":
-#     # N = 7
-#     # stone_values = [(20, 10, 1), (5, 30, 5), (100, 30, 1), (5, 80, 60)]
-#     # N = 3
-#     # stone_values = [(10, 4, 1000), (10, 3, 1000), (10, 8, 1000)]
-#
-#     N = 2
-#     stone_values = [(12, 300, 50), (5, 200, 0)]
-#     #     #   # stone_values = [(10, 4, 1000)]
+# def main():
+#     N = 3
+#     stone_values = [(10, 4, 1000), (10, 3, 1000), (10, 8, 1000)]
 #     print(maximize_energy(N, stone_values))
+#
+#
+# if __name__ == "__main__":
+#     main()
