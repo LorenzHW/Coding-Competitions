@@ -103,7 +103,7 @@ def WrongAnswerExit(p, case_id, error_msg):
 # e.g. C++ users: cmd = ["./my_binary"]
 #      Python users: cmd = [sys.executable, "my_code.py"]
 #      Java users: cmd = ["java", "my_main_class_name"]
-cmd = [sys.executable, "training.py"]
+cmd = [sys.executable, "palindromes.py"]
 # cmd = sys.argv[1:]
 assert cmd, "There should be at least one argument." + USAGE_MSG
 if (cmd[0] == "-h") or (cmd[0] == "-help") or (cmd[0] == "--h") or (
