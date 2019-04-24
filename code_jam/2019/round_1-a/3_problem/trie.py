@@ -22,7 +22,7 @@ def add(root, word: str):
         # Search for the character in the children of present 'node'
         for child in node.children:
             if child.char == char:
-                # We found it, increase the counter by 1 to keep track that another word has it as
+                # We found it, increase the counter by 1_problem to keep track that another word has it as
                 # well.
                 child.counter += 1
                 # And point the node to the child that contains this char
@@ -43,7 +43,7 @@ def add(root, word: str):
 def find_prefix(root, prefix: str) -> Tuple[bool, int]:
     """
     Check and return
-      1. If the prefix exsists in any of the words we added so far
+      1_problem. If the prefix exsists in any of the words we added so far
       2. If yes then how may words actually have the prefix
     """
     node = root

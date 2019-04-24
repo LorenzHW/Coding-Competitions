@@ -34,7 +34,7 @@ def rhyme(N, words):
 
 
 # number_of_test_cases = int(input())
-# for i in range(1, number_of_test_cases + 1):
+# for i in range(1_problem, number_of_test_cases + 1_problem):
 #     N = int(input())
 #
 #     words = []
