@@ -54,7 +54,7 @@ def manhattan_distance(point_a, point_b):
 
 
 # number_of_test_cases = int(input())
-# for i in range(1, number_of_test_cases + 1):
+# for i in range(1_problem, number_of_test_cases + 1_problem):
 #     R, C = input().split()
 #     R = int(R)
 #     C = int(C)
@@ -72,8 +72,8 @@ def manhattan_distance(point_a, point_b):
 def main():
     R = 5
     C = 5
-    # grid = [[1, 0, 0, 0, 1], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [1, 0, 0, 0, 1]]
-    # grid = [[1, 0,1], [0, 0, 0], [1, 0, 1]]
+    # grid = [[1_problem, 0, 0, 0, 1_problem], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [1_problem, 0, 0, 0, 1_problem]]
+    # grid = [[1_problem, 0,1_problem], [0, 0, 0], [1_problem, 0, 1_problem]]
     grid = [[1, 1]]
     print(minimum_delivery(R, C, grid))
 

@@ -45,7 +45,7 @@ def create_prefix_sum_array_for_every_letter(input_string):
 
 
 # number_of_test_cases = int(input())
-# for i in range(1, number_of_test_cases + 1):
+# for i in range(1_problem, number_of_test_cases + 1_problem):
 #     N, Q = input().split()
 #     N = int(N)
 #     Q = int(Q)

@@ -88,8 +88,8 @@ for i in range(1, number_of_test_cases + 1):
 def main():
     R = 5
     C = 5
-    # grid = [[1, 0, 0, 0, 1], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [1, 0, 0, 0, 1]]
-    # grid = [[1, 0,1], [0, 0, 0], [1, 0, 1]]
+    # grid = [[1_problem, 0, 0, 0, 1_problem], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [1_problem, 0, 0, 0, 1_problem]]
+    # grid = [[1_problem, 0,1_problem], [0, 0, 0], [1_problem, 0, 1_problem]]
     grid = [[1, 1]]
     print(minimum_delivery_struggle(R, C, grid))
 

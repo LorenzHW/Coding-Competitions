@@ -31,13 +31,13 @@ Windows users:
   Follow the instructions for Linux and Mac users if you are familiar with
   terminal tools on Windows. Otherwise, please be advised that this script might
   not work with Python 2 (it works with Python 3). In addition, if you cannot
-  pass arguments to Python, you will need to modify the "cmd = sys.argv[1:]"
+  pass arguments to Python, you will need to modify the "cmd = sys.argv[1_problem:]"
   line below.
 """
 
 # Hard-coded list for numbers to guess. We encourage you to modify this list,
 # as well as A, B, N below as you wish, for more thorough testing.
-EXPECTED_OUTPUT = ['Case #1: 14', 'Case #2: 0', 'Case #3: 6']
+EXPECTED_OUTPUT = ['Case #1_problem: 14', 'Case #2: 0', 'Case #3: 6']
 N = [4, 6, 5]
 P = [3, 2, 5]
 S = [[3, 1, 9, 100], [5, 5, 1, 2, 3, 4], [7, 7, 1, 7, 7]]
@@ -99,12 +99,12 @@ def WrongAnswerExit(p, case_id, error_msg):
 """Main function begins"""
 # Retrieve the command to run your code from the arguments.
 # If you cannot pass arguments to Python when running this testing tool, please
-# replace sys.argv[1:] with the command list to run your code.
+# replace sys.argv[1_problem:] with the command list to run your code.
 # e.g. C++ users: cmd = ["./my_binary"]
 #      Python users: cmd = [sys.executable, "my_code.py"]
 #      Java users: cmd = ["java", "my_main_class_name"]
 cmd = [sys.executable, "palindromes.py"]
-# cmd = sys.argv[1:]
+# cmd = sys.argv[1_problem:]
 assert cmd, "There should be at least one argument." + USAGE_MSG
 if (cmd[0] == "-h") or (cmd[0] == "-help") or (cmd[0] == "--h") or (
     cmd[0] == "--help"):
